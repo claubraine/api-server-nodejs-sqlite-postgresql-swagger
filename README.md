@@ -32,28 +32,28 @@ $ yarn
 
 **#3** - Executar SQLite|PostgreSql migration via TypeORM
 
-Para usar PostgreSql
-editar .env
-    DB="postgresql"
-editar ormconfig.jon
-    linha 3 -> "skip": false,
-    linha 4 -> "name": "sqlite"
-    linha 17 -> "skip": true
-    linha 18 -> "name": "default",
-editar src/index.ts
-    //import server from "./server/database_sqlite";
-    import server from "./server/database_postgresql";   
+Para usar PostgreSql<br />
+editar .env<br />
+    DB="postgresql"<br />
+editar ormconfig.jon<br />
+    linha 3 -> "skip": false,<br />
+    linha 4 -> "name": "sqlite"<br />
+    linha 17 -> "skip": true<br />
+    linha 18 -> "name": "default",<br />
+editar src/index.ts<br />
+    //import server from "./server/database_sqlite";<br />
+    import server from "./server/database_postgresql";<br />   
 
-editar src/controllers.ts   
+editar src/controllers.ts<br />   
 
-//import { connection } from '../server/database_sqlite_conf';
-import { connection } from '../server/database_postgresql_conf';
+//import { connection } from '../server/database_sqlite_conf';<br />
+import { connection } from '../server/database_postgresql_conf';<br />
 
-//import ActiveSession from '../models/sqlite/activeSession';
-import ActiveSession from '../models/postgresql/activeSession';
+//import ActiveSession from '../models/sqlite/activeSession';<br />
+import ActiveSession from '../models/postgresql/activeSession';<br />
 
-//import User from '../models/sqlite/user';
-import User from '../models/postgresql/user';
+//import User from '../models/sqlite/user';<br />
+import User from '../models/postgresql/user';<br />
 
 ```
 $ yarn typeorm migration:run

@@ -1,0 +1,96 @@
+  [
+    {
+      "skip": true,
+      "name": "default",
+      "type": "sqlite",
+      "database": "./database_sqlite.db",
+      "autoSchemaSync": true,
+      "entities": [
+        "src/models/sqlite/**/*{.js,.ts}"
+      ],
+      "migrations": ["src/migrations/sqlite/**/*{.js,.ts}"],
+      "cli": {
+        "migrationsDir": "src/migrations/sqlite/"
+      }
+    },
+    {
+      "skip": false,
+      "name": "postgres",
+      "type": "postgres",
+      "host": "ec2-54-160-96-70.compute-1.amazonaws.com",
+      "port": 5432,
+      "username": "dyyserxaqaenqn",
+      "password": "3acc53ea009d9976e998bb163abc368bfaee82fac287810473fb81598fd84ae0",
+      "database": "d3v4uq505jqg87",
+      "extra": {
+        "ssl": {
+          "rejectUnauthorized": false
+        }
+      },
+      "entities": [
+        "./src/models/postgresql/**/*.ts"
+      ],
+      "migrations": [
+        "./src/migrations/postgresql/*.ts"
+      ],
+      "cli": {
+        "migrationsDir": "./src/migrations/postgresql/"
+      }
+    },
+    {
+      "skip": false,
+      "name": "mysql",
+      "type": "mysql",
+      "host": "localhost",
+      "port": 3306,
+      "username": "root",
+      "password": "admin",
+      "database": "test",
+      "logging": false
+    },
+    {
+      "skip": false,
+      "name": "mariadb",
+      "type": "mariadb",
+      "host": "localhost",
+      "port": 3307,
+      "username": "root",
+      "password": "admin",
+      "database": "test",
+      "logging": false
+    },
+    {
+      "skip": false,
+      "name": "mssql",
+      "type": "mssql",
+      "host": "localhost",
+      "username": "sa",
+      "password": "Admin12345",
+      "database": "tempdb",
+      "logging": false,
+      "extra": {
+        "trustServerCertificate": true
+      }
+    },
+    {
+      "skip": false,
+      "name": "oracle",
+      "type": "oracle",
+      "host": "localhost",
+      "username": "system",
+      "password": "oracle",
+      "port": 1521,
+      "sid": "xe.oracle.docker",
+      "logging": false
+    },
+    {
+      "skip": false,
+      "disabledIfNotEnabledImplicitly": true,
+      "name": "mongodb",
+      "type": "mongodb",
+      "database": "test",
+      "logging": false,
+      "useNewUrlParser": true,
+      "useUnifiedTopology": true
+    }
+  ]

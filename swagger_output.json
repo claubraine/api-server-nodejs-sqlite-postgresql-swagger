@@ -1,0 +1,520 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "3.0.1",
+    "title": "GO Exper - API SERVER",
+    "description": "Documentação automática gerada pelo modulo <b>swagger</b>."
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Servidor",
+      "description": "Teste conexão"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "name": "x-access-token",
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token",
+      "bearerFormat": "JWT",
+      "in": "header"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/user/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Login",
+        "parameters": [
+          {
+            "name": "dados",
+            "in": "body",
+            "description": "Login do Usuário",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/post_login_req"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "success": true,
+            "token": "",
+            "user": "",
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "success": false,
+            "msg": "Credenciais erradas ou usuário não registrado"
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Logout",
+        "parameters": [
+          {
+            "name": "dados",
+            "in": "body",
+            "description": "Registrar novo Usuário",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/post_logout_req"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "success": true,
+            "description": "OK"
+          },
+          "400": {
+            "success": false,
+            "msg": "Token revogado",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/checkSession": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Checar Sessão",
+        "parameters": [
+          {
+            "name": "dados",
+            "in": "body",
+            "description": "Logout",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/post_checkSession_req"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "success": true,
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Registrar novo Usuário",
+        "parameters": [
+          {
+            "name": "dados",
+            "in": "body",
+            "description": "Registrar novo Usuário",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/post_user_req"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "success": true,
+            "msg": "Usuário registrado com sucesso",
+            "description": "OK",
+            "userID": ""
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "success": false,
+            "msg": "Erro de validação: ..."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Editar Usuário",
+        "parameters": [
+          {
+            "name": "dados",
+            "in": "body",
+            "description": "Editar Usuário",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/put_user_req"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "success": true,
+            "msg": "Usuári atualizado com sucesso"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "success": false,
+            "msg": "Erro. Por favor contacte o administrador"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Escluir Usuário",
+        "parameters": [
+          {
+            "name": "dados",
+            "in": "body",
+            "description": "Editar Usuário",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/delete_user_req"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "success": true,
+            "msg": "Sucesso"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/{email}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Listar Usuário por Email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "success": false,
+            "user": {
+              "id": "",
+              "username": "",
+              "email": ""
+            },
+            "msg": "nenhum registro encontrado"
+          }
+        }
+      }
+    },
+    "/api/user/{userToken}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Listar Usuário por Token",
+        "parameters": [
+          {
+            "name": "userToken",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "success": false,
+            "user": {
+              "id": "",
+              "username": "",
+              "email": ""
+            },
+            "msg": "nenhum registro encontrado"
+          }
+        }
+      }
+    },
+    "/api/user/{userID}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Listar Usuário por ID",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "success": false,
+            "user": {
+              "id": "",
+              "username": "",
+              "email": ""
+            },
+            "msg": "nenhum registro encontrado"
+          }
+        }
+      }
+    },
+    "/api/user/all": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Listar Todos Usuários",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "success": true,
+            "users": {
+              "id": "",
+              "username": "",
+              "email": "",
+              "date": ""
+            },
+            "description": "OK"
+          },
+          "401": {
+            "success": false,
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Servidor"
+        ],
+        "description": "TESTE - API - Serviço de Integração",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "SUCESSO - API - Serviço de Integração"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "post_login_req": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "post_logout_req": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "token"
+      ]
+    },
+    "post_checkSession_req": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "token"
+      ]
+    },
+    "post_user_req": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password"
+      ]
+    },
+    "put_user_req": {
+      "type": "object",
+      "properties": {
+        "userToken": {
+          "type": "string",
+          "example": ""
+        },
+        "username": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "userToken"
+      ]
+    },
+    "delete_user_req": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "userID"
+      ]
+    },
+    "get_user_req": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string",
+          "example": ""
+        },
+        "username": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "userID",
+        "username",
+        "email",
+        "password"
+      ]
+    },
+    "POST_user_res": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password"
+      ]
+    }
+  }
+}
